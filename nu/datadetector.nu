@@ -135,4 +135,29 @@
 		((/\w+:\/{0,2}[-:@\w_~%=&#,\.\+\/]+/ findAllInString:txt) each:(do (m)
 			(arr addObject:(dict "object" (m group) "range" (NSValue valueWithRange:(m range)) "type" "url")) ))
 		arr)
+	
+	(+ (id) detectStreetAddresses:(id)txt is
+		(puts "Detecting address")
+		(set arr (NSMutableArray array))
+		((/(\d+)		# 1 - Street number
+			[ \t]*
+			([\w]+)?	# 2 - Street name
+			[ \t]+
+			(st|street|rd|road|hwy|highway|way|boulevard|blvd)	# 3 - Street type
+			\.?			# Possible "." after street type abbreviation
+			[ \t]*
+			(\d*)		# 4 - Highway number (if applicable)
+			(			# 5 - Apartment or floor number
+				[ \t]+
+				(apartment|aptmt|apmt)?		# 6 - "apartment" or "aptmt"
+				[ \t]*
+				(\d+)						# 7 - Number
+				\w*							# Positional abbreviation ('nd', 'rd', 'st', etc.)
+				[ \t]*
+				(floor|fl)?					# 8 - "floor" or "fl"
+			)
+			/imx findAllInString:txt) each:(do (m)
+				(arr addObject:(dict "object" (m group) "range" (NSValue valueWithRange:(m range)) "type" "street-address"))
+			))
+		arr)
 )
