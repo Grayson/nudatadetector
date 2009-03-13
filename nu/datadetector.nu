@@ -146,7 +146,7 @@
 			(st|street|rd|road|hwy|highway|way|boulevard|blvd)	# 3 - Street type
 			\.?			# Possible "." after street type abbreviation
 			[ \t]*
-			(\d*)		# 4 - Highway number (if applicable)
+			(\d+)?		# 4 - Highway number (if applicable)
 			(			# 5 - Apartment or floor number
 				[ \t]+
 				(apartment|aptmt|apmt)?		# 6 - "apartment" or "aptmt"
@@ -156,7 +156,16 @@
 				[ \t]*
 				(floor|fl)?					# 8 - "floor" or "fl"
 			)
+			(			# 9 - City, State
+				[ \t\n]*
+				(\w+)						# 10 - City
+				[ \t,]+
+				(\w+)						# 11 - State
+				[ \t]*
+				([\d\-]{5,})*				# 12 - ZIP
+			)
 			/imx findAllInString:txt) each:(do (m)
+				(puts (m description))
 				(arr addObject:(dict "object" (m group) "range" (NSValue valueWithRange:(m range)) "type" "street-address"))
 			))
 		arr)
