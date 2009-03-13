@@ -137,6 +137,7 @@
 		arr)
 	
 	(+ (id) detectStreetAddresses:(id)txt is
+		; Problem: Can detect false positives for city and state, basically the next line after a street address
 		(puts "Detecting address")
 		(set arr (NSMutableArray array))
 		((/(\d+)		# 1 - Street number
