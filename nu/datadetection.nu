@@ -42,7 +42,6 @@
 		
 		(if (@trackingAreas) (@trackingAreas each:(do (ta) 
 			(@view removeTrackingArea:ta) )) )
-		 ; (@trackingAreas release) )
 		(set @trackingAreas (NSMutableArray array))
 		(data each:(do (datum)
 			(set range ((datum objectForKey:"range") rangeValue))
@@ -129,7 +128,7 @@
 	;; Note that you are responsible for memory management of the DataDetectionController so catch it in 
 	;; <code>textView:createdDataDetectionController:</code>.
 	(imethod (void) detectData:(id) sender is
-		(set ddc (DataDetectionController new))
+		(set ddc ((DataDetectionController new) autorelease))
 		(ddc setView:self)
 		(ddc setTrackingAreasForData:((self string) detectedData))
 		

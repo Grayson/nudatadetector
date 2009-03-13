@@ -36,12 +36,13 @@
 		arr)
 
 	(function convertComponentsIntoCalendarDate (month day year)
+		(set dateStr (+ month " " day " " year))
 		(if (month isKindOfClass:(NSNumber class))
-			(if (> (year length) 2) (NSCalendarDate dateWithString:"#{month} #{day} #{year}" calendarFormat:"%m %d %Y")
-			(else (NSCalendarDate dateWithString:"#{month} #{day} #{year}" calendarFormat:"%m %d %y")))
+			(if (> (year length) 2) (NSCalendarDate dateWithString:dateStr calendarFormat:"%m %d %Y")
+			(else (NSCalendarDate dateWithString:dateStr calendarFormat:"%m %d %y")))
 		(else
-			(if (> (year length) 2) (NSCalendarDate dateWithString:"#{month} #{day} #{year}" calendarFormat:"%b %d %Y")
-			(else (NSCalendarDate dateWithString:"#{month} #{day} #{year}" calendarFormat:"%b %d %y")) )) ) )
+			(if (> (year length) 2) (NSCalendarDate dateWithString:dateStr calendarFormat:"%b %d %Y")
+			(else (NSCalendarDate dateWithString:dateStr calendarFormat:"%b %d %y")) )) ) )
 
 	(+ (id) detectCalendarData:(id)txt is
 		(set arr (NSMutableArray array))

@@ -31,7 +31,7 @@
 	// This delegate method is called by the text view when it creates the controller.
 	// You are responsible for memory management here.  If you don't catch it, it will leak.
 	if (self.dataDetectedController) [self.dataDetectedController release];		
-	self.dataDetectedController = [ddc autorelease];
+	self.dataDetectedController = [ddc retain];
 	
 	// As a convenience for this example, the data that is detected will be colored blue.
 	NSLayoutManager *lm = [textView layoutManager];
